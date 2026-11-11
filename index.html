@@ -4,56 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบบริหารงานพัสดุโรงเรียน (SEMIS)</title>
-    <!-- Google Fonts & Bootstrap & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #8e54e9;
-            --secondary-color: #4776e6;
-            --bg-color: #f3f0fa;
-            --text-dark: #3b2d56;
-        }
+        :root { --primary-color: #8e54e9; --secondary-color: #4776e6; --bg-color: #f3f0fa; --text-dark: #3b2d56; }
         body { background-color: var(--bg-color); font-family: 'Sarabun', sans-serif; color: #333; }
         .hidden { display: none !important; }
         
-        /* Login */
         .login-wrapper { height: 100vh; display: flex; align-items: center; justify-content: center; }
         .login-card { width: 100%; max-width: 420px; border-radius: 20px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .btn-primary-custom { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); border: none; color: white; font-weight: 600; }
         .btn-primary-custom:hover { opacity: 0.9; color: white; }
 
-        /* Header */
         .app-header { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: white; padding: 12px 24px; border-radius: 0 0 20px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .badge-custom { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); font-weight: normal; }
 
-        /* Dashboard */
         .menu-card { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s; height: 100%; }
         .menu-card:hover { transform: translateY(-5px); }
         .icon-circle { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; font-size: 30px; }
 
-        /* Forms & Tables */
         .card-custom { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .table-custom th { background-color: var(--text-dark); color: white; font-weight: 600; }
         .section-title { color: var(--primary-color); font-weight: 700; border-bottom: 2px solid #e0d8f0; padding-bottom: 8px; margin-bottom: 15px; margin-top: 20px; }
         
-        /* Reports Tabs */
         .nav-tabs-custom .nav-link { border: none; background: white; color: var(--text-dark); border-radius: 20px; margin-right: 10px; padding: 10px 20px; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-tabs-custom .nav-link.active { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: white; }
         
         /* Print Styles */
         @media print {
             body * { visibility: hidden; }
-            #print-area, #print-area * { visibility: visible; }
-            #print-area { position: absolute; left: 0; top: 0; width: 100%; }
+            .print-area, .print-area * { visibility: visible; }
+            .print-area { position: absolute; left: 0; top: 0; width: 100%; }
             .no-print { display: none !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- ================= 1. หน้า LOGIN (รูปที่ 1) ================= -->
+<!-- ================= 1. หน้า LOGIN ================= -->
 <div id="loginPage" class="login-wrapper">
     <div class="card login-card p-4 text-center">
         <div class="mb-4">
@@ -63,26 +52,25 @@
         </div>
         <div class="mb-3 text-start">
             <label class="fw-bold small">ชื่อผู้ใช้ (Username)</label>
-            <input type="text" id="loginUser" class="form-control form-control-lg bg-light" placeholder="กรอกชื่อผู้ใช้">
+            <input type="text" id="loginUser" class="form-control form-control-lg bg-light" placeholder="กรอกชื่อผู้ใช้" value="admin">
         </div>
         <div class="mb-4 text-start">
             <label class="fw-bold small">รหัสผ่าน (Password)</label>
             <div class="input-group">
-                <input type="password" id="loginPass" class="form-control form-control-lg bg-light" placeholder="กรอกรหัสผ่าน">
+                <input type="password" id="loginPass" class="form-control form-control-lg bg-light" placeholder="กรอกรหัสผ่าน" value="1234">
                 <span class="input-group-text bg-light"><i class="fa-regular fa-eye-slash"></i></span>
             </div>
         </div>
         <button class="btn btn-primary-custom btn-lg w-100 py-2 mb-3" onclick="doLogin()">
             <i class="fa-solid fa-lock me-2"></i>เข้าสู่ระบบ
         </button>
-        <p class="small text-muted mb-0">โรงเรียน/เจ้าหน้าที่ที่ต้องการใช้ระบบ <a href="#">ลงทะเบียนที่นี่</a></p>
     </div>
 </div>
 
-<!-- ================= 2. MAIN APP CONTAINER ================= -->
+<!-- ================= 2. MAIN APP ================= -->
 <div id="mainApp" class="hidden pb-5">
     
-    <!-- Header (รูปที่ 2) -->
+    <!-- Header -->
     <div class="app-header d-flex flex-wrap justify-content-between align-items-center no-print">
         <div class="d-flex align-items-center gap-3">
             <img src="https://via.placeholder.com/40/ffffff/8e54e9?text=S" class="rounded-circle" style="background:white;">
@@ -93,7 +81,6 @@
         </div>
         <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
             <span class="badge badge-custom py-2 px-3 rounded-pill">ปีงบประมาณ 2569</span>
-            <span class="badge badge-custom py-2 px-3 rounded-pill">11 พฤศจิกายน 2569</span>
             <span class="badge bg-warning text-dark py-2 px-3 rounded-pill"><i class="fa-solid fa-graduation-cap"></i> Teacher</span>
             <button class="btn btn-sm btn-light rounded-pill fw-bold" onclick="openSettings()"><i class="fa-solid fa-gear"></i></button>
             <button class="btn btn-sm btn-danger rounded-pill fw-bold" onclick="logout()">ออกจากระบบ</button>
@@ -102,7 +89,7 @@
 
     <div class="container mt-4">
         
-        <!-- ================= 3. DASHBOARD (รูปที่ 2) ================= -->
+        <!-- ================= 3. DASHBOARD ================= -->
         <div id="dashboardView" class="text-center">
             <h3 class="fw-bold mt-4" style="color: var(--text-dark);">สวัสดี, นายศิรศักดิ์ จันทร์อ้าย (โรงเรียนบ้านถิ่นสำราญ)</h3>
             <p class="text-muted mb-5">เลือกเมนูที่ต้องการดำเนินการด้านล่าง</p>
@@ -122,24 +109,14 @@
                         <div class="card-body">
                             <div class="icon-circle" style="background:#e6f0ff; color:var(--secondary-color);"><i class="fa-solid fa-chart-pie"></i></div>
                             <h5 class="fw-bold">แบบรายงานพัสดุอื่น</h5>
-                            <p class="text-muted small mb-0">ทะเบียนคุมวัสดุ • ใบเบิกวัสดุ • ทะเบียนคุมครุภัณฑ์<br>การตรวจสอบพัสดุประจำปี และรายงานอื่นๆ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card menu-card p-4">
-                        <div class="card-body">
-                            <div class="icon-circle" style="background:#fff4e6; color:#fd7e14;"><i class="fa-solid fa-star"></i></div>
-                            <h5 class="fw-bold">ประเมิน / แจ้งปัญหา</h5>
-                            <p class="text-muted small mb-0">ประเมินความพึงพอใจการใช้งาน<br>และแจ้งปัญหาการใช้งาน</p>
+                            <p class="text-muted small mb-0">ทะเบียนคุมวัสดุ • ใบเบิกวัสดุ • ทะเบียนคุมครุภัณฑ์ ฯลฯ</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-outline-warning rounded-pill mt-5 fw-bold px-4"><i class="fa-solid fa-bug"></i> แจ้งปัญหา</button>
         </div>
 
-        <!-- ================= 4. PURCHASE LIST (รูปที่ 4) ================= -->
+        <!-- ================= 4. PURCHASE LIST ================= -->
         <div id="purchaseListView" class="hidden">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold text-primary mb-0"><i class="fa-solid fa-list"></i> บันทึกการจัดซื้อ/จัดจ้าง</h4>
@@ -160,27 +137,17 @@
                         <table class="table table-bordered table-custom text-center align-middle">
                             <thead>
                                 <tr>
-                                    <th>รหัส</th>
-                                    <th>แก้ไข</th>
-                                    <th>ประเภท</th>
-                                    <th>โครงการ</th>
-                                    <th>กลุ่มงาน</th>
-                                    <th>รายการ</th>
-                                    <th>ราคา/หน่วย</th>
-                                    <th>เอกสาร</th>
-                                    <th>จัดการ</th>
+                                    <th>รหัส</th><th>แก้ไข</th><th>ประเภท</th><th>โครงการ</th><th>กลุ่มงาน</th><th>รายการ</th><th>ราคา</th><th>เอกสาร</th><th>จัดการ</th>
                                 </tr>
                             </thead>
-                            <tbody id="purchaseTableBody">
-                                <!-- Populated via JS -->
-                            </tbody>
+                            <tbody id="purchaseTableBody"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 5. PURCHASE FORM (รูปที่ 5-9) ================= -->
+        <!-- ================= 5. PURCHASE FORM ================= -->
         <div id="purchaseFormView" class="hidden">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="fw-bold text-primary mb-0"><i class="fa-solid fa-file-invoice"></i> บันทึกการจัดซื้อ/จัดจ้าง</h4>
@@ -191,7 +158,6 @@
                 <div class="card-body p-4">
                     <input type="hidden" id="recordId">
                     
-                    <!-- Section 1: ข้อมูลโครงการ -->
                     <div class="section-title">ข้อมูลโครงการ</div>
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -199,7 +165,7 @@
                             <input type="text" id="projectName" class="form-control" placeholder="เช่น วัสดุและประมาณผล">
                         </div>
                         <div class="col-md-6">
-                            <label class="fw-bold">เจ้าหน้าที่พัสดุ (แสดงในเอกสาร)</label>
+                            <label class="fw-bold">เจ้าหน้าที่พัสดุ</label>
                             <input type="text" class="form-control" value="นายศิรศักดิ์ จันทร์อ้าย (คนที่ 1)" readonly>
                         </div>
                     </div>
@@ -248,78 +214,6 @@
                         </div>
                     </div>
 
-                    <!-- Section 2: เอกสาร -->
-                    <div class="section-title">บันทึกข้อความ</div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="fw-bold">บันทึกข้อความร่างขอบเขต (TOR) เลขที่</label>
-                            <input type="text" class="form-control" placeholder="เช่น 123/2569">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="fw-bold">ลงวันที่</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="fw-bold">บันทึกข้อความขอซื้อ/ขอจ้าง เลขที่</label>
-                            <input type="text" class="form-control" placeholder="เช่น 124/2569">
-                        </div>
-                    </div>
-                    
-                    <!-- Section 3: คณะกรรมการ -->
-                    <div class="section-title">คำสั่งแต่งตั้ง / กรรมการ</div>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="fw-bold">คำสั่งแต่งตั้งร่างขอบเขต (TOR) เลขที่</label>
-                            <input type="text" class="form-control" placeholder="เช่น 081/2569">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="fw-bold">กรรมการร่างขอบเขต (TOR)</label>
-                            <input type="text" class="form-control" placeholder="เช่น นายศักดิ์ มาเรียน">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="fw-bold">คำสั่งแต่งตั้งตรวจรับพัสดุ เลขที่</label>
-                            <input type="text" class="form-control" placeholder="เช่น 086/2569">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="fw-bold">กรรมการตรวจรับ</label>
-                            <input type="text" class="form-control" placeholder="เช่น ชื่อ-สกุล">
-                        </div>
-                    </div>
-
-                    <!-- Section 4: ผู้เสนอราคา/การเงิน (รูปที่ 9) -->
-                    <div class="section-title">ผู้เสนอราคา / ร้านค้า / การเงิน</div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="fw-bold">ผู้เสนอราคา</label>
-                            <input type="text" class="form-control" placeholder="เช่น นายค้าขาย สบายดี">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">เบอร์โทรร้านค้า/ผู้ขาย</label>
-                            <input type="text" class="form-control" placeholder="เช่น 0842297199">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="fw-bold">ร้านค้า</label>
-                            <input type="text" class="form-control" placeholder="เช่น ค้าขายร่ำรวย">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">เลขที่บัญชี</label>
-                            <input type="text" class="form-control" placeholder="เช่น 5150103861">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="fw-bold">ธนาคาร</label>
-                            <input type="text" class="form-control" placeholder="เช่น กรุงไทย">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">สาขา</label>
-                            <input type="text" class="form-control" placeholder="เช่น แมริม">
-                        </div>
-                    </div>
-
-                    <!-- แนบไฟล์ -->
                     <div class="mb-4 p-3 rounded" style="background:#f8f9fa; border: 1px dashed #ccc;">
                         <label class="fw-bold text-primary"><i class="fa-solid fa-paperclip"></i> แนบไฟล์เอกสาร (PDF, Word, Excel)</label>
                         <input type="file" id="fileUpload" class="form-control mt-2" accept=".pdf,.doc,.docx,.xls,.xlsx">
@@ -334,237 +228,184 @@
             </div>
         </div>
 
-        <!-- ================= 6. REPORTS VIEW (รูปที่ 10-16) ================= -->
+        <!-- ================= 6. REPORTS VIEW ================= -->
         <div id="reportsView" class="hidden">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 no-print">
                 <h4 class="fw-bold text-primary mb-0"><i class="fa-solid fa-chart-pie"></i> แบบรายงานพัสดุอื่น</h4>
                 <button class="btn btn-secondary" onclick="showView('dashboardView')"><i class="fa-solid fa-house"></i> หน้าหลัก</button>
             </div>
 
-            <!-- Tabs -->
-            <ul class="nav nav-tabs-custom mb-4 justify-content-center">
+            <ul class="nav nav-tabs-custom mb-4 justify-content-center no-print">
                 <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab1">1. ทะเบียนคุมวัสดุ</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab2">2. ใบเบิกวัสดุ</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab3">3. ใบยืมวัสดุ</a></li>
-                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab4">4. ทะเบียนคุมครุภัณฑ์</a></li>
-                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab5">5. ตรวจสอบพัสดุประจำปี</a></li>
-                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab6">6. อื่นๆ</a></li>
             </ul>
 
-            <!-- Tab Content -->
             <div class="tab-content">
-                <!-- Tab 1: ทะเบียนคุมวัสดุ (รูปที่ 10) -->
+                <!-- Tab 1: ทะเบียนคุมวัสดุ -->
                 <div class="tab-pane fade show active" id="tab1">
-                    <div class="card card-custom">
+                    <div class="card card-custom no-print mb-3">
                         <div class="card-body">
-                            <div class="row mb-3 align-items-end">
-                                <div class="col-md-4">
+                            <div class="row align-items-end">
+                                <div class="col-md-6">
                                     <label class="fw-bold">เลือกโครงการ (จัดซื้อ/จัดจ้าง)</label>
-                                    <select class="form-select"><option>— เลือกโครงการ —</option></select>
+                                    <select class="form-select" id="report1Project">
+                                        <option value="">— เลือกโครงการ —</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-8">
-                                    <button class="btn btn-light border me-2"><i class="fa-solid fa-eye"></i> แสดง</button>
-                                    <button class="btn btn-primary-custom me-2"><i class="fa-solid fa-floppy-disk"></i> บันทึกประเภท</button>
-                                    <button class="btn btn-light border me-2"><i class="fa-solid fa-print"></i> พิมพ์</button>
-                                    <button class="btn btn-light border"><i class="fa-solid fa-file-export"></i> โหลดเป็น</button>
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                    <button class="btn btn-primary-custom me-2" onclick="showReport1()"><i class="fa-solid fa-eye"></i> แสดง</button>
+                                    <button class="btn btn-light border" onclick="window.print()"><i class="fa-solid fa-print"></i> พิมพ์</button>
                                 </div>
-                            </div>
-                            
-                            <div id="print-area" class="mt-4 p-4 border rounded bg-white">
-                                <div class="text-end mb-3">เลขที่ _________________</div>
-                                <h4 class="text-center fw-bold mb-4">ทะเบียนคุมพัสดุ</h4>
-                                <div class="text-end mb-4">ส่วนราชการ_________________<br>วันที่ _________________</div>
-                                <p>รายการวัสดุตามการจัดซื้อ/จัดจ้าง เพื่อใช้ดำเนินการตาม_________________</p>
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" class="align-middle">ลำดับที่</th>
-                                            <th rowspan="2" class="align-middle">รายการ</th>
-                                            <th rowspan="2" class="align-middle">ประเภท</th>
-                                            <th colspan="4">จำนวน</th>
-                                            <th rowspan="2" class="align-middle">หมายเหตุ</th>
-                                        </tr>
-                                        <tr>
-                                            <th>ปี</th>
-                                            <th>เบิก/ยืมแล้ว</th>
-                                            <th>ลำสุด</th>
-                                            <th>คงเหลือ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td colspan="8" class="text-muted py-4">เลือกโครงการด้านบนเพื่อแสดงรายการ</td></tr>
-                                    </tbody>
-                                </table>
-                                <p class="text-center text-danger mt-3">กรุณาเลือกโครงการก่อน</p>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="print-area card card-custom p-4 bg-white">
+                        <div class="text-end mb-3">เลขที่ _________________</div>
+                        <h4 class="text-center fw-bold mb-4">ทะเบียนคุมพัสดุ</h4>
+                        <div class="text-end mb-4">ส่วนราชการ โรงเรียนบ้านถิ่นสำราญ<br>วันที่ _________________</div>
+                        <p>รายการวัสดุตามการจัดซื้อ/จัดจ้าง เพื่อใช้ดำเนินการตาม <span id="rep1Obj" class="fw-bold"></span></p>
+                        <table class="table table-bordered text-center align-middle">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" class="align-middle">ลำดับที่</th>
+                                    <th rowspan="2" class="align-middle">รายการ</th>
+                                    <th rowspan="2" class="align-middle">ประเภท</th>
+                                    <th colspan="4">จำนวน</th>
+                                    <th rowspan="2" class="align-middle">หมายเหตุ</th>
+                                </tr>
+                                <tr>
+                                    <th>ปี</th><th>เบิก/ยืมแล้ว</th><th>ลำสุด</th><th>คงเหลือ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-report1">
+                                <tr><td colspan="8" class="text-muted py-4">เลือกโครงการด้านบนเพื่อแสดงรายการ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- Tab 2: ใบเบิกวัสดุ (รูปที่ 11-13) -->
+                <!-- Tab 2: ใบเบิกวัสดุ -->
                 <div class="tab-pane fade" id="tab2">
-                    <div class="card card-custom">
+                    <div class="card card-custom no-print mb-3">
                         <div class="card-body">
-                            <div class="row mb-3 align-items-end">
-                                <div class="col-md-4">
-                                    <label class="fw-bold">เลือกโครงการ (จัดซื้อ/จัดจ้าง)</label>
-                                    <select class="form-select"><option>— เลือกโครงการ —</option></select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="fw-bold">วันที่ขอเบิก</label>
-                                    <input type="date" class="form-control">
-                                </div>
+                            <div class="row align-items-end">
                                 <div class="col-md-5">
-                                    <button class="btn btn-light border me-2"><i class="fa-solid fa-eye"></i> แสดง</button>
-                                    <button class="btn btn-primary-custom me-2"><i class="fa-solid fa-floppy-disk"></i> บันทึกใบเบิก</button>
-                                    <button class="btn btn-light border"><i class="fa-solid fa-print"></i> พิมพ์</button>
+                                    <label class="fw-bold">เลือกโครงการ</label>
+                                    <select class="form-select" id="report2Project">
+                                        <option value="">— เลือกโครงการ —</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mt-3 mt-md-0">
+                                    <label class="fw-bold">วันที่ขอเบิก</label>
+                                    <input type="date" class="form-control" id="rep2Date">
+                                </div>
+                                <div class="col-md-3 mt-3 mt-md-0">
+                                    <button class="btn btn-primary-custom me-2" onclick="showReport2()"><i class="fa-solid fa-eye"></i> แสดง</button>
+                                    <button class="btn btn-light border" onclick="window.print()"><i class="fa-solid fa-print"></i></button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <div id="print-area" class="mt-4 p-4 border rounded bg-white">
-                                <div class="text-end mb-3">เลขที่ _________________</div>
-                                <h4 class="text-center fw-bold mb-4">ใบเบิกพัสดุ</h4>
-                                <div class="text-end mb-4">ส่วนราชการ_________________<br>วันที่ _________________</div>
-                                <p>ข้าพเจ้าขอเบิกพัสดุตามรายการต่อไปนี้ เพื่อใช้ดำเนินการตาม_________________</p>
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>ลำดับที่</th>
-                                            <th>รายการ</th>
-                                            <th colspan="4">จำนวน</th>
-                                            <th>หมายเหตุ</th>
-                                        </tr>
-                                        <tr>
-                                            <th></th><th></th>
-                                            <th>ปี</th>
-                                            <th>ขอเบิก</th>
-                                            <th>วันที่เบิกส่าสุด</th>
-                                            <th>คงเหลือ</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td colspan="7" class="text-muted py-4">เลือกโครงการด้านบนเพื่อเริ่มเบิก</td></tr>
-                                    </tbody>
-                                </table>
-                                
-                                <div class="row mt-5 text-center">
-                                    <div class="col-6">
-                                        <p>(ลงชื่อ)__________________________ผู้ตรวจสอบ<br>เจ้าหน้าที่ผู้ตรวจสอบ<br>(นายศิรศักดิ์ จันทร์อ้าย)<br>วันที่________เดือน________พ.ศ.________</p>
-                                        <p class="mt-4">ได้รับของถูกต้องแล้ว<br>(ลงชื่อ)__________________________ผู้รับของ<br>วันที่________เดือน________พ.ศ.________</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p>(ลงชื่อ)__________________________ผู้เบิก<br>ผู้เบิก<br>(__________________________)<br>ตำแหน่ง__________________________</p>
-                                        <p class="mt-4">อนุญาตให้เบิกได้<br>(ลงชื่อ)__________________________ผู้สั่งจ่าย<br>(ว่าที่ รต.หญิงกัญญาฏ สาก้อน)<br>ตำแหน่ง หัวหน้าหน่วยพัสดุ<br>วันที่________เดือน________พ.ศ.________</p>
-                                    </div>
-                                </div>
+                    <div class="print-area card card-custom p-4 bg-white">
+                        <div class="text-end mb-3">เลขที่ _________________</div>
+                        <h4 class="text-center fw-bold mb-4">ใบเบิกพัสดุ</h4>
+                        <div class="text-end mb-4">ส่วนราชการ โรงเรียนบ้านถิ่นสำราญ<br>วันที่ <span id="rep2DateShow" class="fw-bold"></span></div>
+                        <p>ข้าพเจ้าขอเบิกพัสดุตามรายการต่อไปนี้ เพื่อใช้ดำเนินการตาม <span id="rep2Obj" class="fw-bold"></span></p>
+                        <table class="table table-bordered text-center align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ลำดับที่</th><th>รายการ</th><th colspan="4">จำนวน</th><th>หมายเหตุ</th>
+                                </tr>
+                                <tr>
+                                    <th></th><th></th><th>ปี</th><th>ขอเบิก</th><th>วันที่เบิกส่าสุด</th><th>คงเหลือ</th><th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-report2">
+                                <tr><td colspan="7" class="text-muted py-4">เลือกโครงการด้านบนเพื่อเริ่มเบิก</td></tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="row mt-5 text-center">
+                            <div class="col-6">
+                                <p>(ลงชื่อ)__________________________ผู้ตรวจสอบ<br>เจ้าหน้าที่ผู้ตรวจสอบ<br>(นายศิรศักดิ์ จันทร์อ้าย)<br>วันที่________เดือน________พ.ศ.________</p>
+                                <p class="mt-4">ได้รับของถูกต้องแล้ว<br>(ลงชื่อ)__________________________ผู้รับของ<br>วันที่________เดือน________พ.ศ.________</p>
+                            </div>
+                            <div class="col-6">
+                                <p>(ลงชื่อ)__________________________ผู้เบิก<br>ผู้เบิก<br>(__________________________)<br>ตำแหน่ง__________________________</p>
+                                <p class="mt-4">อนุญาตให้เบิกได้<br>(ลงชื่อ)__________________________ผู้สั่งจ่าย<br>(ว่าที่ รต.หญิงกัญญาฏ สาก้อน)<br>ตำแหน่ง หัวหน้าหน่วยพัสดุ<br>วันที่________เดือน________พ.ศ.________</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tab 3: ใบยืมวัสดุ (รูปที่ 14-16) -->
+                <!-- Tab 3: ใบยืมวัสดุ -->
                 <div class="tab-pane fade" id="tab3">
-                    <div class="card card-custom">
+                    <div class="card card-custom no-print mb-3">
                         <div class="card-body">
-                            <div class="row mb-3 align-items-end">
+                            <div class="row align-items-end">
                                 <div class="col-md-3">
-                                    <label class="fw-bold">เลือกโครงการ (จัดซื้อ/จัดจ้าง)</label>
-                                    <select class="form-select"><option>— กำลังโหลดรายการ —</option></select>
+                                    <label class="fw-bold">เลือกโครงการ</label>
+                                    <select class="form-select" id="report3Project">
+                                        <option value="">— เลือกโครงการ —</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="fw-bold">ผู้ยืม (ข้าพเจ้า)</label>
-                                    <input type="text" class="form-control" placeholder="ชื่อ-สกุล">
+                                <div class="col-md-3 mt-3 mt-md-0">
+                                    <label class="fw-bold">ผู้ยืม</label>
+                                    <input type="text" class="form-control" id="rep3Borrower" placeholder="ชื่อ-สกุล">
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="fw-bold">ตำแหน่ง</label>
-                                    <input type="text" class="form-control" placeholder="ตำแหน่ง">
-                                </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3 mt-3 mt-md-0">
                                     <label class="fw-bold">กำหนดส่งคืน</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" id="rep3ReturnDate">
                                 </div>
-                                <div class="col-md-3">
-                                    <button class="btn btn-light border me-1"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-primary-custom me-1"><i class="fa-solid fa-floppy-disk"></i> บันทึก</button>
-                                    <button class="btn btn-light border"><i class="fa-solid fa-print"></i></button>
-                                </div>
-                            </div>
-
-                            <div id="print-area" class="mt-4 p-4 border rounded bg-white">
-                                <div class="text-end mb-3">เลขที่ _________________</div>
-                                <h4 class="text-center fw-bold mb-4">ใบยืมพัสดุ/ครุภัณฑ์</h4>
-                                
-                                <p>ข้าพเจ้า __________________________ ตำแหน่ง __________________________<br>
-                                กลุ่มงาน __________________________ โรงเรียน __________________________<br>
-                                ได้ยืมสิ่งของตามบัญชีรายการสิ่งของที่ยืมข้างล่างนี้จาก <u>งานพัสดุโรงเรียน</u><br>
-                                เพื่อ __________________________ ตั้งแต่วันที่ __________________________ ข้าพเจ้าจะนำส่งคืนวันที่ __________________________</p>
-                                
-                                <p class="small">หากสิ่งของที่นำมาส่งคืนชำรุดเสียหาย หรือใช้การไม่ได้หรือสูญหายไป ข้าพเจ้ายินดีจัดการแก้ไขซ่อมแซมให้คงสภาพเดิมโดยเสียค่าใช้จ่ายของตนเอง หรือชดใช้เป็นพัสดุประเภท ชนิด ขนาด ลักษณะและคุณภาพอย่างเดียวกัน หรือชดใช้เป็นเงินตามราคาที่เป็นอยู่ในขณะยืม ตามหลักเกณฑ์ที่กระทรวงการคลังกำหนด</p>
-
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>ที่</th>
-                                            <th>รายการ</th>
-                                            <th colspan="3">จำนวน</th>
-                                            <th>หมายเหตุ</th>
-                                        </tr>
-                                        <tr>
-                                            <th></th><th></th>
-                                            <th>ปี</th>
-                                            <th>ขอยืม</th>
-                                            <th>คงเหลือ</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td colspan="6" class="text-muted py-4">เลือกโครงการด้านบนเพื่อเริ่มทำใบยืม</td></tr>
-                                    </tbody>
-                                </table>
-                                
-                                <div class="row mt-5 text-center">
-                                    <div class="col-6">
-                                        <p>(ลงชื่อ)__________________________ผู้ยืม<br>(__________________________)<br>วันที่________เดือน________พ.ศ.________</p>
-                                        <p class="mt-4">( ) อนุมัติ ( ) ไม่อนุมัติ<br>(ลงชื่อ)__________________________<br>ตำแหน่ง หัวหน้าพัสดุ</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p><b>ความเห็นของเจ้าหน้าที่</b><br>
-                                        ( ) ควรอนุมัติให้ยืม<br>
-                                        ( ) ไม่สามารถให้ยืมได้ เนื่องจาก__________________________<br>
-                                        (ลงชื่อ)__________________________เจ้าหน้าที่</p>
-                                        <p class="mt-4">ได้รับของตามรายการข้างต้นไปแล้ว<br>(ลงชื่อ)__________________________ผู้รับ<br><br>ได้รับคืนสิ่งของตามรายการข้างต้นเรียบร้อยและครบถ้วนแล้ว<br>(ลงชื่อ)__________________________เจ้าหน้าที่</p>
-                                    </div>
+                                <div class="col-md-3 mt-3 mt-md-0">
+                                    <button class="btn btn-primary-custom me-1" onclick="showReport3()"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn btn-light border" onclick="window.print()"><i class="fa-solid fa-print"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Tab 4: ทะเบียนคุมครุภัณฑ์ -->
-                <div class="tab-pane fade" id="tab4">
-                    <div class="card card-custom text-center p-5">
-                        <i class="fa-solid fa-server text-muted mb-3" style="font-size: 50px;"></i>
-                        <h4 class="fw-bold">ทะเบียนคุมครุภัณฑ์</h4>
-                        <p class="text-muted">ส่วนนี้ยังไม่ได้กำหนดรายละเอียด — โปรดระบุรูปแบบรายงานและแหล่งข้อมูลที่ต้องการ</p>
-                    </div>
-                </div>
+                    <div class="print-area card card-custom p-4 bg-white">
+                        <div class="text-end mb-3">เลขที่ _________________</div>
+                        <h4 class="text-center fw-bold mb-4">ใบยืมพัสดุ/ครุภัณฑ์</h4>
+                        
+                        <p>ข้าพเจ้า <span id="rep3NameShow" class="fw-bold">__________________________</span> ตำแหน่ง __________________________<br>
+                        กลุ่มงาน __________________________ โรงเรียน __________________________<br>
+                        ได้ยืมสิ่งของตามบัญชีรายการสิ่งของที่ยืมข้างล่างนี้จาก <u>งานพัสดุโรงเรียน</u><br>
+                        เพื่อ <span id="rep3Obj" class="fw-bold"></span> ตั้งแต่วันที่ __________________________ ข้าพเจ้าจะนำส่งคืนวันที่ <span id="rep3DateShow" class="fw-bold">__________________________</span></p>
+                        
+                        <p class="small">หากสิ่งของที่นำมาส่งคืนชำรุดเสียหาย หรือใช้การไม่ได้หรือสูญหายไป ข้าพเจ้ายินดีจัดการแก้ไขซ่อมแซมให้คงสภาพเดิมโดยเสียค่าใช้จ่ายของตนเอง หรือชดใช้เป็นพัสดุประเภท ชนิด ขนาด ลักษณะและคุณภาพอย่างเดียวกัน หรือชดใช้เป็นเงินตามราคาที่เป็นอยู่ในขณะยืม ตามหลักเกณฑ์ที่กระทรวงการคลังกำหนด</p>
 
-                <!-- Tab 5: ตรวจสอบพัสดุประจำปี -->
-                <div class="tab-pane fade" id="tab5">
-                    <div class="card card-custom text-center p-5">
-                        <i class="fa-solid fa-clipboard-check text-muted mb-3" style="font-size: 50px;"></i>
-                        <h4 class="fw-bold">การตรวจสอบพัสดุประจำปี</h4>
-                        <p class="text-muted">ส่วนนี้ยังไม่ได้กำหนดรายละเอียด — โปรดระบุรูปแบบรายงานและแหล่งข้อมูลที่ต้องการ</p>
-                    </div>
-                </div>
-                
-                <!-- Tab 6: อื่นๆ -->
-                <div class="tab-pane fade" id="tab6">
-                    <div class="card card-custom text-center p-5">
-                        <i class="fa-solid fa-plus text-muted mb-3" style="font-size: 50px;"></i>
-                        <h4 class="fw-bold">อื่นๆ</h4>
-                        <p class="text-muted">ส่วนนี้ยังไม่ได้กำหนดรายละเอียด — โปรดระบุรายงานที่ต้องการเพิ่ม</p>
+                        <table class="table table-bordered text-center align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ที่</th><th>รายการ</th><th colspan="3">จำนวน</th><th>หมายเหตุ</th>
+                                </tr>
+                                <tr>
+                                    <th></th><th></th><th>ปี</th><th>ขอยืม</th><th>คงเหลือ</th><th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-report3">
+                                <tr><td colspan="6" class="text-muted py-4">เลือกโครงการด้านบนเพื่อเริ่มทำใบยืม</td></tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="row mt-5 text-center">
+                            <div class="col-6">
+                                <p>(ลงชื่อ)__________________________ผู้ยืม<br>(<span id="rep3NameSign"></span>)<br>วันที่________เดือน________พ.ศ.________</p>
+                                <p class="mt-4">( ) อนุมัติ ( ) ไม่อนุมัติ<br>(ลงชื่อ)__________________________<br>ตำแหน่ง หัวหน้าพัสดุ</p>
+                            </div>
+                            <div class="col-6">
+                                <p><b>ความเห็นของเจ้าหน้าที่</b><br>
+                                ( ) ควรอนุมัติให้ยืม<br>
+                                ( ) ไม่สามารถให้ยืมได้ เนื่องจาก__________________________<br>
+                                (ลงชื่อ)__________________________เจ้าหน้าที่</p>
+                                <p class="mt-4">ได้รับของตามรายการข้างต้นไปแล้ว<br>(ลงชื่อ)__________________________ผู้รับ<br><br>ได้รับคืนสิ่งของตามรายการข้างต้นเรียบร้อยและครบถ้วนแล้ว<br>(ลงชื่อ)__________________________เจ้าหน้าที่</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -574,7 +415,6 @@
 </div>
 
 <!-- ================= MODALS ================= -->
-<!-- Modal ตั้งค่า (รูปที่ 3) -->
 <div class="modal fade" id="settingsModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -583,66 +423,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-info py-2"><i class="fa-solid fa-school"></i> โรงเรียนบ้านถิ่นสำราญ (รหัส 8) — แก้ไขได้ทุกช่อง ยกเว้นชื่อโรงเรียน</div>
-                
-                <h6 class="section-title mt-0">ข้อมูลโรงเรียน</h6>
+                <div class="alert alert-info py-2"><i class="fa-solid fa-school"></i> โรงเรียนบ้านถิ่นสำราญ (รหัส 8)</div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="fw-bold">ชื่อ-สกุลผู้อำนวยการ</label>
-                        <input type="text" id="setDirector" class="form-control" value="นายวีระ สุรินทร์">
+                        <input type="text" id="setDirector" class="form-control">
                     </div>
-                    <div class="col-md-6">
-                        <label class="fw-bold">ตำแหน่งผู้อำนวยการ</label>
-                        <select class="form-select"><option>ผู้อำนวยการ</option><option>รองผู้อำนวยการ</option></select>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="fw-bold">ลิงก์รูปโลโก้โรงเรียน (URL)</label>
-                    <input type="text" class="form-control" placeholder="https://drive.google.com/...">
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label class="fw-bold">ปีการศึกษา</label>
-                        <input type="text" class="form-control" value="2569">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="fw-bold">ปีงบประมาณ</label>
-                        <input type="text" class="form-control" value="2569">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="fw-bold">สังกัด/เขตพื้นที่การศึกษา</label>
-                    <input type="text" class="form-control" value="สำนักงานเขตพื้นที่การศึกษาประถมศึกษาเชียงใหม่ เขต 5">
-                </div>
-                <div class="mb-3">
-                    <label class="fw-bold">ที่อยู่โรงเรียน</label>
-                    <input type="text" class="form-control" value="375 หมู่ 1 ต.ดอยเต่า อ.ดอยเต่า จ.เชียงใหม่">
-                </div>
-                <div class="mb-4">
-                    <label class="fw-bold">เลขประจำตัวผู้เสียภาษีของโรงเรียน</label>
-                    <input type="text" class="form-control" value="0994002468641">
-                </div>
-
-                <h6 class="section-title">เจ้าหน้าที่พัสดุ (สูงสุด 4 คน)</h6>
-                <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="fw-bold">เจ้าหน้าที่พัสดุ คนที่ 1 (หลัก)</label>
-                        <input type="text" id="setStaff1" class="form-control" value="นายศิรศักดิ์ จันทร์อ้าย">
-                        <small class="text-muted">ค่าเริ่มต้นในฟอร์มบันทึกจัดซื้อ/จัดจ้าง</small>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="fw-bold">เจ้าหน้าที่พัสดุ คนที่ 2</label>
-                        <input type="text" class="form-control" placeholder="เว้นว่างได้">
+                        <input type="text" id="setStaff1" class="form-control">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="fw-bold">หัวหน้าเจ้าหน้าที่พัสดุ</label>
-                        <input type="text" id="setHeadStaff" class="form-control" value="ว่าที่ รต.หญิงกัญญาฏ สาก้อน">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="fw-bold">เบอร์โทรงานพัสดุ</label>
-                        <input type="text" class="form-control" placeholder="ใช้ในเอกสารจัดซื้อจัดจ้าง">
+                        <input type="text" id="setHeadStaff" class="form-control">
                     </div>
                 </div>
             </div>
@@ -654,14 +449,13 @@
     </div>
 </div>
 
-<!-- Modal ค้นหา (รูปที่ 9) -->
 <div class="modal fade" id="searchModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
             <div class="modal-body p-4">
                 <h5 class="fw-bold mb-3"><i class="fa-solid fa-magnifying-glass"></i> ค้นหารายการที่เคยบันทึก</h5>
                 <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="พิมพ์คำค้น แล้วกดค้นหา — คลิกรายการเพื่อดึงข้อมูลกลับมาแก้ไข">
+                    <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="พิมพ์คำค้น...">
                     <button class="btn btn-primary-custom px-4" onclick="searchRecords()">ค้นหา</button>
                 </div>
                 <div class="text-center">
@@ -678,18 +472,18 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // ==========================================
-    // *** ใส่ URL WEB APP ของคุณที่นี่ ***
+    // *** URL ของคุณถูกใส่ไว้ที่นี่แล้ว ***
     // ==========================================
-    const API_URL = 'ใส่_URL_WEB_APP_จาก_APPS_SCRIPT_ของคุณที่นี่'; 
+    const API_URL = 'https://script.google.com/macros/s/AKfycbye11T7d9HIpq6bya4WGd2FeR50K82QwNMFKuoNUPuK_MpRCN3aIE1He7Hh-0HfZut4gw/exec'; 
 
     let settingsModal, searchModal;
+    let allRecords = [];
 
     document.addEventListener("DOMContentLoaded", function() {
         settingsModal = new bootstrap.Modal(document.getElementById('settingsModal'));
         searchModal = new bootstrap.Modal(document.getElementById('searchModal'));
     });
 
-    // --- ระบบเรียก API ---
     async function callAPI(action, data = {}) {
         const payload = { action: action, ...data };
         try {
@@ -705,7 +499,6 @@
         }
     }
 
-    // --- ระบบ Login ---
     async function doLogin() {
         const user = document.getElementById('loginUser').value;
         const pass = document.getElementById('loginPass').value;
@@ -725,18 +518,11 @@
     }
 
     function logout() {
-        Swal.fire({
-            title: 'ออกจากระบบ?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'ออกจากระบบ',
-            cancelButtonText: 'ยกเลิก'
-        }).then((result) => {
+        Swal.fire({ title: 'ออกจากระบบ?', icon: 'question', showCancelButton: true, confirmButtonText: 'ออกจากระบบ' }).then((result) => {
             if (result.isConfirmed) location.reload();
         });
     }
 
-    // --- ระบบนำทาง (Navigation) ---
     function showView(viewId) {
         const views = ['dashboardView', 'purchaseListView', 'purchaseFormView', 'reportsView'];
         views.forEach(v => document.getElementById(v).classList.add('hidden'));
@@ -744,9 +530,7 @@
         if(viewId === 'purchaseListView') loadTable();
     }
 
-    // --- ระบบตารางและฟอร์มจัดซื้อจัดจ้าง ---
-    let allRecords = [];
-
+    // --- โหลดตารางและ Dropdown ---
     async function loadTable() {
         const tbody = document.getElementById('purchaseTableBody');
         tbody.innerHTML = '<tr><td colspan="9" class="text-center">กำลังโหลดข้อมูล...</td></tr>';
@@ -757,6 +541,9 @@
             document.getElementById('recordCount').innerText = allRecords.length;
             tbody.innerHTML = '';
             
+            // อัปเดต Dropdown ในหน้าต่างรายงาน
+            populateReportDropdowns();
+
             if(allRecords.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">ยังไม่มีข้อมูล</td></tr>';
                 return;
@@ -783,6 +570,18 @@
         }
     }
 
+    function populateReportDropdowns() {
+        const selectors = ['report1Project', 'report2Project', 'report3Project'];
+        selectors.forEach(id => {
+            const select = document.getElementById(id);
+            select.innerHTML = '<option value="">— เลือกโครงการ —</option>';
+            allRecords.forEach(r => {
+                select.innerHTML += `<option value="${r.id}">${r.projectName} (${r.id})</option>`;
+            });
+        });
+    }
+
+    // --- ระบบฟอร์มจัดซื้อจัดจ้าง ---
     function openPurchaseForm() {
         document.getElementById('recordId').value = '';
         document.getElementById('projectName').value = '';
@@ -810,7 +609,7 @@
         document.getElementById('objective').value = record.objective || '';
         
         if(record.fileUrl) {
-            document.getElementById('currentFileText').innerHTML = `⚠️ ไฟล์ปัจจุบัน: <a href="${record.fileUrl}" target="_blank">${record.fileName}</a> <br><small>(หากคุณอัปโหลดไฟล์ใหม่ ไฟล์นี้จะถูกลบถาวรทันที)</small>`;
+            document.getElementById('currentFileText').innerHTML = `⚠️ ไฟล์ปัจจุบัน: <a href="${record.fileUrl}" target="_blank">${record.fileName}</a> <br><small>(หากอัปโหลดใหม่ ไฟล์นี้จะถูกลบถาวร)</small>`;
         }
         searchModal.hide();
     }
@@ -818,7 +617,6 @@
     async function saveRecord() {
         const fileInput = document.getElementById('fileUpload');
         const file = fileInput.files[0];
-        
         let fileData = null, fileName = null, fileType = null;
 
         if (file) {
@@ -855,13 +653,8 @@
 
     async function deleteRecord(id) {
         const result = await Swal.fire({
-            title: 'ยืนยันการลบ?',
-            text: "ไฟล์เอกสารที่แนบไว้จะถูกลบถาวร (ไม่สามารถกู้คืนได้)",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'ลบถาวร',
-            cancelButtonText: 'ยกเลิก'
+            title: 'ยืนยันการลบ?', text: "ไฟล์เอกสารแนบจะถูกลบถาวร", icon: 'warning',
+            showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'ลบถาวร'
         });
 
         if(result.isConfirmed) {
@@ -885,9 +678,93 @@
         });
     }
 
-    // --- ระบบตั้งค่า ---
+    // --- ระบบรายงาน (Reports) ---
+    function showReport1() {
+        const id = document.getElementById('report1Project').value;
+        if(!id) return Swal.fire('แจ้งเตือน', 'กรุณาเลือกโครงการ', 'warning');
+        
+        const record = allRecords.find(r => r.id === id);
+        if(!record) return;
+
+        document.getElementById('rep1Obj').innerText = record.objective || '-';
+        
+        const tbody = document.getElementById('tbody-report1');
+        tbody.innerHTML = `
+            <tr>
+                <td>1</td>
+                <td class="text-start">${record.item}</td>
+                <td>${record.type}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="fw-bold">${record.price}</td>
+                <td>${record.details || '-'}</td>
+            </tr>
+        `;
+    }
+
+    function showReport2() {
+        const id = document.getElementById('report2Project').value;
+        const date = document.getElementById('rep2Date').value;
+        if(!id) return Swal.fire('แจ้งเตือน', 'กรุณาเลือกโครงการ', 'warning');
+
+        const record = allRecords.find(r => r.id === id);
+        if(!record) return;
+
+        document.getElementById('rep2Obj').innerText = record.objective || '-';
+        document.getElementById('rep2DateShow').innerText = date ? new Date(date).toLocaleDateString('th-TH') : '-';
+
+        const tbody = document.getElementById('tbody-report2');
+        tbody.innerHTML = `
+            <tr>
+                <td>1</td>
+                <td class="text-start">${record.item}</td>
+                <td>-</td>
+                <td class="fw-bold">${record.price}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>${record.details || '-'}</td>
+            </tr>
+        `;
+    }
+
+    function showReport3() {
+        const id = document.getElementById('report3Project').value;
+        const borrower = document.getElementById('rep3Borrower').value;
+        const returnDate = document.getElementById('rep3ReturnDate').value;
+        if(!id) return Swal.fire('แจ้งเตือน', 'กรุณาเลือกโครงการ', 'warning');
+
+        const record = allRecords.find(r => r.id === id);
+        if(!record) return;
+
+        document.getElementById('rep3Obj').innerText = record.objective || '-';
+        document.getElementById('rep3NameShow').innerText = borrower || '__________________________';
+        document.getElementById('rep3NameSign').innerText = borrower || '__________________________';
+        document.getElementById('rep3DateShow').innerText = returnDate ? new Date(returnDate).toLocaleDateString('th-TH') : '__________________________';
+
+        const tbody = document.getElementById('tbody-report3');
+        tbody.innerHTML = `
+            <tr>
+                <td>1</td>
+                <td class="text-start">${record.item}</td>
+                <td>-</td>
+                <td class="fw-bold">${record.price}</td>
+                <td>-</td>
+                <td>${record.details || '-'}</td>
+            </tr>
+        `;
+    }
+
+    // --- ระบบตั้งค่า & ค้นหา ---
     function openSettings() {
-        settingsModal.show();
+        callAPI('getSettings').then(res => {
+            if(res.success) {
+                document.getElementById('setDirector').value = res.data.director || '';
+                document.getElementById('setStaff1').value = res.data.staff1 || '';
+                document.getElementById('setHeadStaff').value = res.data.headStaff || '';
+            }
+            settingsModal.show();
+        });
     }
 
     async function saveSettings() {
@@ -896,10 +773,8 @@
             staff1: document.getElementById('setStaff1').value,
             headStaff: document.getElementById('setHeadStaff').value
         };
-        
         Swal.fire({ title: 'กำลังบันทึก...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
         const res = await callAPI('saveSettings', { data });
-        
         if(res.success) {
             Swal.fire('สำเร็จ', 'บันทึกการตั้งค่าเรียบร้อย', 'success');
             settingsModal.hide();
@@ -908,7 +783,6 @@
         }
     }
 
-    // --- ระบบค้นหา ---
     function openSearchModal() {
         document.getElementById('searchInput').value = '';
         document.getElementById('searchResults').innerHTML = '';
